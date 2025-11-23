@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %} Reports {% endblock %}
+
+{% block content %}
+
+<header>
+    <h2>Reports Summary</h2>
+    <div class="controls"></div>
+</header>
+
+<div class="grid">
+
+    <div class="card">
+        <h3>Total Teachers</h3>
+        <div class="stat-value">{{ teachers}}</div>
+    </div>
+
+    <div class="card">
+        <h3>Total Students</h3>
+        <div class="stat-value">{{ students.name}}</div>
+    </div>
+
+    <div class="card">
+        <h3>Total Attendance Entries</h3>
+        <div class="stat-value">{{ attendances }}</div>
+    </div>
+
+    <div class="card">
+        <h3>Attendance Chart</h3>
+        <canvas id="attChart"></canvas>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+new Chart(document.getElementById("attChart"), {
+    type: "bar",
+    data: {
+        labels: {{ report_dates|safe }},
+        datasets: [{
+            label: "Attendance",
+            data: {{ report_counts|safe }},
+            backgroundColor: "rgba(99,102,241,0.7)",
+            borderRadius: 6
+        }]
+    },
+    options: {
+        plugins:{legend:{display:false}},
+        scales:{y:{beginAtZero:true}}
+    }
+});
+</script>
+
+{% endblock %}

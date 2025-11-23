@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %} Teachers {% endblock %}
+{% block content %}
+<header>
+    <h2 id="pageTitle">Admin Dashboard</h2>
+    <div class="controls">
+        <input id="search" placeholder="🔍 Search..." style="min-width:200px">
+        <span class="small">💾 Request</span>
+    </div>
+</header>
+
+
+<div style="display: flex; ">
+    <h2>Manage Teacher</h2>
+
+    <div style="margin-left: 780px;">
+        <a href="{{ url_for('crud.add_teacher') }}">
+            <button type="button" class="btn">Add Teacher</button>
+        </a>
+    </div>
+</div>
+<br>
+
+{% if teachers %}
+<div class="card">
+    <table>
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Contact</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for teacher in teachers %}
+            <tr>
+                <td>{{ teacher.id }}</td>
+                <td>{{ teacher.name }}</td>
+                <td>{{ teacher.email }}</td>
+                <td>{{ teacher.contact }}</td>
+                <td>
+                    <div class="table-actions">
+                        <a href="{{ url_for('crud.update_teacher', teacher_id=teacher.id) }}">
+                            <span><button type="button" class="action-btn edit"><span class="icon">✏️</span>
+                                    Update</button></span>
+                        </a>
+                        <span><button type="button" class="action-btn delete">
+                                <span class="icon">🗑️</span>Delete
+                            </button></span>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="card">
+    <p style="color: var(--text-muted); padding: 20px; text-align:center;">
+        No teachers added yet.
+    </p>
+</div>
+{% endif %}
+
+{% endblock %}

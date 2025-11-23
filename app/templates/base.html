@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>{% block title %}FRAS Dashboard {% endblock %}</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css')}}">
+
+</head>
+
+<body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    {{ message }}
+
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+  
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+
+            {% if session.get('user_type') == 'admin' %}
+            <div class="profile">
+                <img src="https://i.pravatar.cc/150?img=12" alt="profile">
+                <h3 id="userName">Tejashvi Mohan</h3>
+                <p id="userRole">Administrator</p>
+            </div>
+            <nav>
+                <a href="{{ url_for('dashboard.admin_dashboard') }}">📊 Overview</a>
+                <a href="{{ url_for('dashboard.manage_teacher') }}">👨‍🏫 Teachers</a>
+                <a href="{{ url_for('dashboard.manage_students') }}">🎓 Students</a>
+                <a href="{{ url_for('dashboard.attendance') }}">📋 Attendance</a>
+                <a href="{{ url_for('dashboard.report') }}">📈 Reports</a>
+            </nav>
+            <div class="logout">
+                <a href="{{ url_for('auth.login')}}">Logout</a>
+            </div>
+            <div class="export-section">
+                <label>📥 Export Data</label>
+                <div class="export-controls">
+                    <button class="btn" onclick="exportTeachersXLS()">Teachers Data</button>
+                    <button class="btn" onclick="exportStudentsXLS()">Students Data</button>
+                    <button class="btn" onclick="exportAttendanceXLS()">Attendance Data</button>
+                </div>
+            </div>
+            {% elif session.get('user_type') == 'teacher' %}
+            <div class="profile">
+                <img src="https://i.pravatar.cc/150?img=12" alt="profile">
+                <h3 id="userName">Tejashvi Mohan</h3>
+                <p id="userRole">Teacher</p>
+            </div>
+            <nav>
+                <a href="{{ url_for('dashboard.teacher_dashboard')}}">📊 Overview</a>
+                <a href="{{ url_for('dashboard.manage_students') }}">🎓 Students</a>
+                <a href="{{ url_for('dashboard.attendance') }}">📋 Attendance</a>
+                <a href="{{ url_for('dashboard.report') }}">📈 Reports</a>
+            </nav>
+            <div class="logout">
+                <a href="{{ url_for('auth.login')}}">Logout</a>
+            </div>
+            <div class="export-section">
+                <label>📥 Export Data</label>
+                <div class="export-controls">
+                    <button class="btn" onclick="exportStudentsXLS()">Students Data</button>
+                    <button class="btn" onclick="exportAttendanceXLS()">Attendance Data</button>
+                </div>
+            </div>
+            {% elif session.get('user_type') == 'student' %}
+            <div class="profile">
+                <img src="https://i.pravatar.cc/150?img=12" alt="profile">
+                <h3 id="userName">Tejashvi Mohan</h3>
+                <p id="userRole">Student</p>
+            </div>
+            <nav>
+                <a href="{{ url_for('dashboard.student_dashboard')}}">📊 Overview</a>
+                <a href="{{ url_for('dashboard.attendance')}}">📋 Attendance</a>
+                <a href="{{ url_for('dashboard.report')}}">📈 Reports</a>
+            </nav>
+            <div class="logout">
+                <a href="{{ url_for('auth.login')}}">Logout</a>
+            </div>
+            <div class="export-section">
+                <label>📥 Export Data</label>
+                <div class="export-controls">
+                    <button class="btn" onclick="exportAttendanceXLS()">Attendance Data</button>
+                </div>
+            </div>
+            {% endif %}
+
+
+
+
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content">
+              {% block content %}{% endblock %}
+        </main>
+        </main>
+    </div>
+
+</body>
+
+</html>

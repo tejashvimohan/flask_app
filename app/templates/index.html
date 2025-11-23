@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Recognition Attendance System</title>
+
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --secondary: #6366f1;
+            --dark: #0f172a;
+            --light: #f8fafc;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: var(--light);
+            color: var(--dark);
+        }
+
+        /* NAVBAR */
+        .navbar {
+            width: 100%;
+            padding: 20px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            background: white;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+        }
+        .navbar .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .navbar a {
+            margin-left: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        .navbar a:hover {
+            color: var(--primary);
+        }
+
+        /* HERO SECTION */
+        .hero {
+            padding: 150px 60px 100px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(150deg, #4f46e5, #6d28d9);
+            color: white;
+        }
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+        .hero button {
+            padding: 14px 28px;
+            background: white;
+            color: var(--primary);
+            border-radius: 8px;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .hero button:hover {
+            background: #f1f1f1;
+        }
+        .hero img {
+            width: 45%;
+            border-radius: 12px;
+            box-shadow: 0 20px 30px rgba(0,0,0,0.25);
+        }
+
+        /* FEATURES */
+        .features {
+            padding: 80px 60px;
+            background: white;
+            text-align: center;
+        }
+        .features h2 {
+            font-size: 36px;
+            margin-bottom: 40px;
+            font-weight: 700;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 35px;
+        }
+        .feature-card {
+            padding: 25px;
+            background: var(--light);
+            border-radius: 10px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.07);
+        }
+        .feature-card h3 {
+            font-size: 20px;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        .feature-card p {
+            color: #475569;
+            font-size: 14px;
+        }
+
+        /* HOW IT WORKS */
+        .how {
+            padding: 80px 60px;
+            background: #eef2ff;
+        }
+        .how h2 {
+            text-align: center;
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 40px;
+        }
+        .how-steps {
+            display: flex;
+            gap: 30px;
+            justify-content: space-between;
+        }
+        .step {
+            flex: 1;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+        .step span {
+            font-size: 40px;
+            color: var(--secondary);
+        }
+        .step h3 {
+            margin: 10px 0;
+        }
+
+        /* CTA SECTION */
+        .cta {
+            padding: 80px 60px;
+            text-align: center;
+            background: linear-gradient(120deg,#4f46e5,#6d28d9);
+            color: white;
+        }
+        .cta button {
+            padding: 14px 30px;
+            background: white;
+            color: var(--primary);
+            border: none;
+            border-radius: 10px;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* FOOTER */
+        .footer {
+            padding: 40px;
+            text-align: center;
+            background: #1e293b;
+            color: white;
+        }
+
+        @media (max-width: 900px) {
+            .hero {flex-direction: column;text-align:center;}
+            .hero img {width: 80%;margin-top:20px;}
+            .features-grid {grid-template-columns: 1fr;}
+            .how-steps {flex-direction: column;}
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <div class="navbar">
+        <div class="logo">Smart Attendance</div>
+        <div>
+            <a href="#features">Features</a>
+            <a href="#how">How it Works</a>
+            <a href="{{ url_for('auth.login') }}">Login</a>
+            <a href="{{ url_for('register.register') }}">Register</a>
+        </div>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div>
+            <h1>Face Recognition Based Attendance System</h1>
+            <p>Fast, secure and AI-powered attendance for schools, colleges and companies.</p>
+            <button onclick="window.location.href='{{ url_for('auth.login') }}'">Get Started →</button>
+        </div>
+        <img src="https://images.unsplash.com/photo-1551434678-e076c223a692" alt="Dashboard Preview">
+    </section>
+
+    <!-- FEATURES -->
+    <section id="features" class="features">
+        <h2>Powerful Features</h2>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>🎭 Face Recognition</h3>
+                <p>AI identifies users instantly with high accuracy even in low light.</p>
+            </div>
+            <div class="feature-card">
+                <h3>⚡ Real-time Attendance</h3>
+                <p>Stream camera feed & mark attendance automatically without manual entry.</p>
+            </div>
+            <div class="feature-card">
+                <h3>📊 Smart Dashboard</h3>
+                <p>Admins, teachers and students get personalized dashboards & reports.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section id="how" class="how">
+        <h2>How It Works</h2>
+
+        <div class="how-steps">
+            <div class="step">
+                <span>1️⃣</span>
+                <h3>Register Users</h3>
+                <p>Admins add students/teachers with basic details.</p>
+            </div>
+            <div class="step">
+                <span>2️⃣</span>
+                <h3>Capture Faces</h3>
+                <p>System stores multiple face samples for training.</p>
+            </div>
+            <div class="step">
+                <span>3️⃣</span>
+                <h3>Live Recognition</h3>
+                <p>Camera identifies users and marks attendance automatically.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <h1>Start Using Smart Attendance Today</h1>
+        <button onclick="window.location.href='{{ url_for('register.register') }}'">Create Account</button>
+    </section>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        © 2025 Smart Attendance · All Rights Reserved
+    </div>
+
+</body>
+</html>

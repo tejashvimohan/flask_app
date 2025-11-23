@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %} Update Teacher Data {% endblock %}
+
+{% block content %}
+<header>
+    <h2 id="pageTitle">✏️ Update Teacher: {{ teacher.name }}</h2>
+    <div class="controls">
+        <a href="{{ url_for('dashboard.manage_teacher') }}" class="btn ghost">← Back to teacher</a>
+    </div>
+</header>
+
+<div class="grid">
+    <div class="card" style="max-width: 500px; margin: auto;">
+        <h3>Edit Teacher Details</h3>
+        <p class="small">Use this form to modify teacher information or reset their password.</p>
+
+        <form action="{{ url_for('crud.update_teacher', teacher_id=teacher.id) }}" method="POST">
+
+            <input type="hidden" id="id" name="id" value="{{ teacher.id }}" required>
+
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" value="{{ teacher.name }}" placeholder="Full name" required>
+            </div>
+
+        
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" value="{{ teacher.email }}" placeholder="Email address"
+                    required>
+            </div>
+
+          
+
+            <div class="form-group">
+                <label for="password">New Password (Leave blank to keep current)</label>
+                <input type="password" id="password" name="password" placeholder="Enter new password to reset">
+            </div>
+
+            <button class="btn btn-primary" type="submit">💾 Save Changes</button>
+            <a href="{{ url_for('dashboard.manage_students') }}"><button class="btn">✖
+                    Cancel</button>
+            </a>
+
+
+        </form>
+    </div>
+</div>
+{% endblock %}

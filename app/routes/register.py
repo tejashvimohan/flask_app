@@ -38,12 +38,6 @@ def register():
         #for registering teacher   
         elif user_type == "teacher":
             
-            
-            if Teacher.query.first():
-                # If an teacher already exists, deny public creation
-                flash('Teacher accounts must be created internally.', 'danger')
-                return redirect(url_for('register.register'))
-            
             if Teacher.query.filter_by(email=email).first():
                 flash('Email already registerd. Please try with different email.', 'error')
                 return redirect(url_for('register.register'))
@@ -52,7 +46,7 @@ def register():
                 name=name, 
                 email=email, 
                 contact=contact,
-                password=password
+                password=password,
                 is_approved=False
             )
             

@@ -102,9 +102,12 @@
         }
 
         @keyframes pulse {
-            0%, 100% {
+
+            0%,
+            100% {
                 box-shadow: 0 8px 30px rgba(99, 102, 241, 0.3);
             }
+
             50% {
                 box-shadow: 0 8px 40px rgba(99, 102, 241, 0.5);
             }
@@ -148,9 +151,12 @@
         }
 
         @keyframes shimmer {
-            0%, 100% {
+
+            0%,
+            100% {
                 opacity: 0.3;
             }
+
             50% {
                 opacity: 1;
             }
@@ -240,7 +246,7 @@
             text-align: center;
         }
 
-        .user-type-option input[type="radio"]:checked + .user-type-label {
+        .user-type-option input[type="radio"]:checked+.user-type-label {
             border-color: var(--accent-primary);
             background: rgba(99, 102, 241, 0.1);
         }
@@ -261,7 +267,7 @@
             color: var(--text-secondary);
         }
 
-        .user-type-option input[type="radio"]:checked + .user-type-label .user-type-name {
+        .user-type-option input[type="radio"]:checked+.user-type-label .user-type-name {
             color: var(--accent-primary);
         }
 
@@ -328,6 +334,7 @@
                 opacity: 0;
                 transform: translateY(-10px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -462,21 +469,24 @@
                     <label>Select User Type</label>
                     <div class="user-type-grid">
                         <div class="user-type-option">
-                            <input type="radio" id="admin" name="user_type" value="admin" required onchange="toggleStudentFields()">
+                            <input type="radio" id="admin" name="user_type" value="admin" required
+                                onchange="toggleStudentFields()">
                             <label for="admin" class="user-type-label">
                                 <span class="user-type-icon">👨‍💼</span>
                                 <span class="user-type-name">Admin</span>
                             </label>
                         </div>
                         <div class="user-type-option">
-                            <input type="radio" id="teacher" name="user_type" value="teacher" required onchange="toggleStudentFields()">
+                            <input type="radio" id="teacher" name="user_type" value="teacher" required
+                                onchange="toggleStudentFields()">
                             <label for="teacher" class="user-type-label">
                                 <span class="user-type-icon">👨‍🏫</span>
                                 <span class="user-type-name">Teacher</span>
                             </label>
                         </div>
                         <div class="user-type-option">
-                            <input type="radio" id="student" name="user_type" value="student" required onchange="toggleStudentFields()">
+                            <input type="radio" id="student" name="user_type" value="student" required
+                                onchange="toggleStudentFields()">
                             <label for="student" class="user-type-label">
                                 <span class="user-type-icon">🎓</span>
                                 <span class="user-type-name">Student</span>
@@ -506,7 +516,8 @@
                                     <div style="font-size: 0.85rem; color: var(--text-muted);">Click to browse</div>
                                 </span>
                             </label>
-                            <input type="file" id="face_image" name="face_image" accept="image/*" onchange="updateFileName(this)">
+                            <input type="file" id="face_image" name="face_image" accept="image/*"
+                                onchange="updateFileName(this)">
                         </div>
                         <div id="file-name" class="file-name"></div>
                     </div>
@@ -517,7 +528,10 @@
                     <input type="email" id="email" name="email" placeholder="Enter your email" required>
                 </div>
 
-                
+                <div class="form-group">
+                    <label for="contact">Contact</label>
+                    <input type="text" id="contact" name="contact" placeholder="Enter your contact" required>
+                </div><br>
 
                 <div class="form-group">
                     <label for="psw">Password</label>

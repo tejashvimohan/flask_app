@@ -13,15 +13,21 @@ def register():
         user_type = request.form.get('user_type')
         name = request.form.get('name')
         email = request.form.get('email')
+        contact = request.form.get('contact')
         password = request.form.get('password')
         roll_no = request.form.get('roll_no')
         
         
         #For registering admin
         if user_type == "admin":
+            
+            if Admin.query.first():
+                # If an admin already exists, deny public creation
+                flash('Admin accounts must be created internally.', 'danger')
+                return redirect(url_for('register.register'))
              
             if  Admin.query.filter_by(email=email).first():
-                flash('Email already registerd. Please try with different email.', 'error')
+                flash('Email already registerd.', 'error')
                 return redirect(url_for('register.register'))
         
             new_user = Admin(username=name, email=email, password=password)
@@ -32,14 +38,27 @@ def register():
         #for registering teacher   
         elif user_type == "teacher":
             
+            
+            if Teacher.query.first():
+                # If an teacher already exists, deny public creation
+                flash('Teacher accounts must be created internally.', 'danger')
+                return redirect(url_for('register.register'))
+            
             if Teacher.query.filter_by(email=email).first():
                 flash('Email already registerd. Please try with different email.', 'error')
                 return redirect(url_for('register.register'))
                 
-            new_user = Teacher(name=name, email=email,  password=password)
+            new_user = Teacher(
+                name=name, 
+                email=email, 
+                contact=contact,
+                password=password
+                is_approved=False
+            )
+            
             db.session.add(new_user)
             db.session.commit()
-            flash('Teacher Registered Successfully.', 'success')
+            flash('Account created successfully. Awaiting Admin approval before login.', 'info')
         
         #for registering student    
         elif user_type == "student":
@@ -48,11 +67,18 @@ def register():
                 flash('Email already registerd. Please try with different email.', 'error')
                 return redirect(url_for('register.register'))
             
-            new_user = Student(name=name, email=email, password=password, roll_no=roll_no)
+            new_user = Student(
+                name=name, 
+                email=email, 
+                contact=contact,
+                password=password, 
+                roll_no=roll_no,
+                is_approved=False
+            )
             
             db.session.add(new_user)
             db.session.commit()
-            flash('Student Registered Successfully.', 'success')
+            flash('Account created successfully. Awaiting Admin approval before login.', 'info')
             
         else:
             flash('Invalid User Type. Please enter valid type.', 'error')

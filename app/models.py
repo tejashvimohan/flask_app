@@ -24,7 +24,9 @@ class Teacher(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
+    contact = db.Column(db.Integer, unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
+    is_approved = db.Column(db.Boolean, default=False, nullable=False) 
     course = db.Column(db.String(100))
     admin_id = db.Column(db.Integer, db.ForeignKey('admins.id'))
     created_at = db.Column(db.DateTime, default=datetime.now)
@@ -42,9 +44,10 @@ class Student(db.Model):
     name = db.Column(db.String(120), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     roll_no = db.Column(db.String(50), unique=True, nullable=False)
+    contact = db.Column(db.Integer, unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
+    is_approved = db.Column(db.Boolean, default=False, nullable=False) 
     face_embedding = db.Column(db.LargeBinary)   # stored face vector
-    voice_embedding = db.Column(db.LargeBinary)  # optional voice vector
     subject_id = db.Column(db.Integer, db.ForeignKey('subjects.id'))
     created_at = db.Column(db.DateTime, default=datetime.now)
 

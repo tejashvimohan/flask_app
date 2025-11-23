@@ -27,7 +27,12 @@ def login():
                 
         elif user_type == 'teacher':
             user = Teacher.query.filter_by(email=email, password=password).first()   
+            
             if user:
+                if not user.is_approved:
+                    flash('Your account is pending Admin review. Please wait for approval.', 'warning')
+                    return redirect(url_for('auth.login'))
+            
                 session['user_id'] = user.id
                 session['user_type'] = 'teacher'
                 session['user_name'] = user.name
@@ -38,7 +43,12 @@ def login():
              
         elif user_type== 'student':
             user = Student.query.filter_by(email=email, password=password).first()  
+            
             if user:
+                if not user.is_approved:
+                    flash('Your account is pending Admin review. Please wait for approval.', 'warning')
+                    return redirect(url_for('auth.login'))
+            
                 session['user_id'] = user.id
                 session['user_type'] = 'student'
                 session['user_name'] = user.name

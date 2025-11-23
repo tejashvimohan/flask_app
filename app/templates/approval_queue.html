@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %} Requests {% endblock %}
+{% block content %}
+
+
+<h2>Pending Teacher Approvals</h2>
+{% for teacher in teachers %}
+    <p>{{ teacher.name }} ({{ teacher.email }})</p>
+    <form method="POST" style="display:inline;">
+        <input type="hidden" name="user_id" value="{{ teacher.id }}">
+        <input type="hidden" name="user_type" value="teacher">
+        <button type="submit" class="btn" name="action" value="approve">Approve</button>
+        <button type="submit" class="btn" name="action" value="reject">Reject</button>
+    </form>
+{% endfor %}
+
+<h2>Pending Student Approvals</h2>
+{% for student in students %}
+    <p>{{ student.name }} ({{ student.email }})</p>
+    <form method="POST" style="display:inline;">
+        <input type="hidden" name="user_id" value="{{ student.id }}">
+        <input type="hidden" name="user_type" value="student">
+        <button type="submit" name="action" value="approve">Approve</button>
+        <button type="submit" name="action" value="reject">Reject</button>
+    </form>
+{% endfor %}
+
+{% endblock %}
